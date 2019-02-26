@@ -82,19 +82,19 @@
     $(document).ready(function() {
 
       //create variables for calculator
-      var firstNumber = "";
-      var secondNumber = "";
-      var operator = "";
-      var result = 0;
-      var isOperatorSelected = false;
-      var isCalculated = false;
+      let firstNumber = "";
+      let secondNumber = "";
+      let operator = "";
+      let result = 0;
+      let isOperatorSelected = false;
+      let isCalculated = false;
 
       //create variables for document text elements to avoid parsing HTML document repeatedly
-      var firstNumberText = $("#first-number");
-      var operatorText = $("#operator");
-      var secondNumberText = $("#second-number");
-      var resultText = $("#result");
-      var displayText = $(".card-body h1");
+      let firstNumberText = $("#first-number");
+      let operatorText = $("#operator");
+      let secondNumberText = $("#second-number");
+      let resultText = $("#result");
+      let displayText = $(".card-body h1");
 
       //function to reset calculator values to neutral state
       function resetCalculator() {
