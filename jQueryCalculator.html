@@ -81,7 +81,7 @@
 
     $(document).ready(function() {
 
-      //create variables for calculator
+      // Create variables for calculator
       let firstNumber = "";
       let secondNumber = "";
       let operator = "";
@@ -89,16 +89,16 @@
       let isOperatorSelected = false;
       let isCalculated = false;
 
-      //create variables for document text elements to avoid parsing HTML document repeatedly
+      // Create variables for document text elements to avoid parsing HTML document repeatedly
       let firstNumberText = $("#first-number");
       let operatorText = $("#operator");
       let secondNumberText = $("#second-number");
       let resultText = $("#result");
       let displayText = $(".card-body h1");
 
-      //function to reset calculator values to neutral state
+      // Function to reset calculator values to neutral state
       function resetCalculator() {
-        //clear "calculator memory"
+        // Clear "calculator memory"
         firstNumber = "";
         secondNumber = "";
         operator = "";
@@ -106,43 +106,43 @@
         isOperatorSelected = false;
         isCalculated = false;
 
-        //clear calculator's display
+        // Clear calculator's display
         displayText.empty();
       }
 
       resetCalculator();
 
-      //this function executes when user clicks on a number
+      // This function executes when user clicks on a number
       $(".number").on("click", function() {
-        //reset calculator to neutral state
+        // Reset calculator to neutral state
         if (isCalculated) {
           resetCalculator();
         }
 
-        //if isOperatorSelected is true, capture user selection as part of secondNumber
+        // If isOperatorSelected is true, capture user selection as part of secondNumber
         if (isOperatorSelected) {
-          //add string version of selected number to secondNumber variable
+          // Add string version of selected number to secondNumber variable
           secondNumber += $(this).val();
-          //show updated secondNumber on calculator's display
+          // Show updated secondNumber on calculator's display
           secondNumberText.text(secondNumber);
         } 
-        //if isOperatorSelected is false, capture user selection as part of firstNumber
+        // If isOperatorSelected is false, capture user selection as part of firstNumber
         else {
-          //add string version of selected number to firstNumber variable
+          // Add string version of selected number to firstNumber variable
           firstNumber += $(this).val();
-          //show updated firstNumber on calculator's display
+          // Show updated firstNumber on calculator's display
           firstNumberText.text(firstNumber);
         }
       });
 
-      //this function executes when user clicks on an operator symbol
+      // This function executes when user clicks on an operator symbol
       $(".operator").on("click", function() {
-        //do not allow user to select operator if firstNumber is empty
+        // Do not allow user to select operator if firstNumber is empty
         if (firstNumber === "") {
           return;
         }
 
-        //operator symbol after equal sign -> use result as firstNumber and clear rest
+        // Operator symbol after equal sign -> use result as firstNumber and clear rest
         if (isCalculated) {
           firstNumber = result;
           firstNumberText.text(firstNumber);
@@ -152,7 +152,7 @@
           isCalculated = false;
         }
 
-        //operator symbol after secondNumber, but before equal sign -> conduct prev operation, use result as firstNumber, and clear rest (except isOperatorSelected)
+        // Operator symbol after secondNumber, but before equal sign -> conduct prev operation, use result as firstNumber, and clear rest (except isOperatorSelected)
         if (secondNumber != "") {
           $(".equal").click();
           firstNumber = result;
@@ -163,22 +163,22 @@
           isCalculated = false;
         }
 
-        //update isOperatorSelected to true so we know firstNumber is complete
+        // Update isOperatorSelected to true so we know firstNumber is complete
         isOperatorSelected = true;
-        //set operator variale to string version of selected operator
+        // Set operator variale to string version of selected operator
         operator = $(this).val();
-        //show the operator symbol selected on calculator's display
+        // Show the operator symbol selected on calculator's display
         operatorText.text($(this).text());
       });
 
-      //this function executes when user clicks on the equal sign
+      // This function executes when user clicks on the equal sign
       $(".equal").on("click", function() {
-        //do not allow user to select equal sign if firstNumber is empty
+        // Do not allow user to select equal sign if firstNumber is empty
         if (firstNumber === "") {
           return;
         }
 
-        //set result to firstNumber if equal pressed before operator
+        // Set result to firstNumber if equal pressed before operator
         if (!isOperatorSelected) {
           result = firstNumber;
           resultText.text(result);
@@ -186,24 +186,24 @@
           return;
         }
 
-        //use firstNumber as both numbers if secondNumber empty
-        if(secondNumber === ""){
+        // Use firstNumber as both numbers if secondNumber empty
+        if (secondNumber === ""){
           secondNumber = firstNumber;
           secondNumberText.text(secondNumber);
         }
 
-        //equal pressed twice in a row
+        // Equal pressed twice in a row
         if (isCalculated) {
           firstNumber = result;
           firstNumberText.text(firstNumber);
         }
 
-        //update isCalculated to keep track if a calculation has occurred
+        // Update isCalculated to keep track if a calculation has occurred
         isCalculated = true;
-        //type cast our numbers to actual integers
+        // Type cast our numbers to actual integers
         firstNumber = parseInt(firstNumber);
         secondNumber = parseInt(secondNumber);
-        //determine which operation to use on our two numbers
+        // Determine which operation to use on our two numbers
         if (operator === "plus") {
           result = firstNumber + secondNumber;
         } else if (operator === "minus") {
@@ -211,7 +211,7 @@
         } else if (operator === "times") {
           result = firstNumber * secondNumber;
         } else if (operator === "divide") {
-          //ensure no division by zero
+          // Ensure no division by zero
           if (secondNumber != 0) {
             result = firstNumber / secondNumber;
           } else {
@@ -220,15 +220,15 @@
         } else if (operator === "power") {
           result = Math.pow(firstNumber, secondNumber);
         }
-        //display result text on calculator's display
+        // Display result text on calculator's display
         resultText.text(result);
-        //set result to zero if currently equal to undefined
+        // Set result to zero if currently equal to undefined
         if (result === "Undefined!") {
           result = parseInt(0);
         }
       });
 
-      //this function executes when user clicks on the clear button
+      // This function executes when user clicks on the clear button
       $(".clear").on("click", function() {
         resetCalculator();
       });
